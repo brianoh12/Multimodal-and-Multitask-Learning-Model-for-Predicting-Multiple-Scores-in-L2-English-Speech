@@ -112,10 +112,11 @@ class MultiheadAttention(nn.Module):
         if attn_mask is not None:
             try:
                 attn_weights += attn_mask.unsqueeze(0)
-            except:
-                print(attn_weights.shape)
-                print(attn_mask.unsqueeze(0).shape)
-                assert False
+            except RuntimeError as exc:
+                raise RuntimeError(
+                    f"Attention mask shape mismatch: attn_weights={attn_weights.shape}, "
+                    f"attn_mask={attn_mask.unsqueeze(0).shape}"
+                ) from exc
                 
         attn_weights = F.softmax(attn_weights.float(), dim=-1).type_as(attn_weights)
         # attn_weights = F.relu(attn_weights)

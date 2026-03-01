@@ -199,9 +199,3 @@ def Linear(in_features, out_features, bias=True):
 def LayerNorm(embedding_dim):
     m = nn.LayerNorm(embedding_dim)
     return m
-
-
-if __name__ == '__main__':
-    encoder = TransformerEncoder(300, 4, 2)
-    x = torch.tensor(torch.rand(20, 2, 300))
-    print(encoder(x).shape)

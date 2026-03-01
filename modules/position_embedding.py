@@ -57,13 +57,11 @@ class SinusoidalPositionalEmbedding(nn.Module):
             emb = torch.cat([emb, torch.zeros(num_embeddings, 1)], dim=1)
         if padding_idx is not None:
             emb[padding_idx, :] = 0
-        # print(f'emb:{emb.shape}')
         return emb
 
     def forward(self, input):
         """Input is expected to be of size [bsz x seqlen]."""
         bsz, seq_len = input.size()
-        # print(f'bsz, seq_len:{bsz, seq_len}')
         max_pos = self.padding_idx + 1 + seq_len
         device = input.get_device()
         if device not in self.weights or max_pos > self.weights[device].size(0):
@@ -74,12 +72,8 @@ class SinusoidalPositionalEmbedding(nn.Module):
                 self.padding_idx,
             )
         self.weights[device] = self.weights[device].type_as(self._float_tensor)
-        # print(f'weights[device]: {self.weights[device].shape}')
         positions = make_positions(input, self.padding_idx, self.left_pad)
-        # print(f'positions: {positions.shape}')
-        # print(f'return:{self.weights[device].index_select(0, positions.view(-1)).view(bsz, seq_len, -1).detach().shape}')
-        # return self.weights[device].index_select(0, positions.view(-1)).view(bsz, seq_len, -1).detach()
-        # Modified line using .reshape() to avoid the error
+        # Use reshape() to avoid non-contiguous tensor view issues.
         return self.weights[device].index_select(0, positions.reshape(-1)).reshape(bsz, seq_len, -1).detach()
 
     

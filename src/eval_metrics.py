@@ -9,11 +9,9 @@ from sklearn.metrics import accuracy_score, f1_score
 
 import logging
 import math
-import numpy as np
 from scipy.stats import kendalltau, spearmanr, pearsonr
 from six import string_types
 from six.moves import xrange as range
-from sklearn.metrics import confusion_matrix, f1_score
 # from sklearn.metrics import mean_squared_error
     
 def multiclass_acc(preds, truths):
@@ -277,15 +275,10 @@ def eval_espeak(results, truths):
    
     test_preds = results.cpu().detach().numpy()
     test_truth = truths.cpu().detach().numpy()
-
-    print(test_preds)
-    print(test_truth)
-    
-    
-    for i,j in enumerate(['Task_Completion','Delivery','Accuracy','Appropriateness','Final_level']):
-        print(f'{j}_pearson : {pearson(test_preds[:, i].tolist(),test_truth[:, i].tolist())}')
-        # print(f'{j}_spearman : {spearman(test_preds[:, i].tolist(),test_truth[:, i].tolist())}')
-        print(f'{j}_kappa_score : {kappa(test_preds[:, i].tolist(),test_truth[:, i].tolist(), weights="quadratic")}')
-        print(f'{j}_rmse : {root_mean_square_error(test_preds[:, i].tolist(),test_truth[:, i].tolist())}')
-        print("\n")
+    trait_names = ['Task_Completion', 'Delivery', 'Accuracy', 'Appropriateness', 'Final_level']
+    for i, trait in enumerate(trait_names):
+        print(f'{trait}_pearson : {pearson(test_preds[:, i].tolist(), test_truth[:, i].tolist())}')
+        print(f'{trait}_kappa_score : {kappa(test_preds[:, i].tolist(), test_truth[:, i].tolist(), weights="quadratic")}')
+        print(f'{trait}_rmse : {root_mean_square_error(test_preds[:, i].tolist(), test_truth[:, i].tolist())}')
+        print()
     

@@ -54,8 +54,6 @@ class MULTModel(nn.Module):
         
         concat_dim = self.lstm_units + self.acoustic_feature_dim + self.lexical_feature_dim + self.syntactic_feature_dim
         
-        # print(self.d_l,self.d_a)
-
         self.partial_mode = self.lonly + self.aonly 
         if self.partial_mode == 1:
             combined_dim = self.d_l   # assuming d_l == d_a == d_v
@@ -148,7 +146,6 @@ class MULTModel(nn.Module):
 
         
         lstm_out, _ = self.lstm(last_hs_proj)
-        # print(lstm_out.shape)
         context, _ = self.attention(lstm_out)
         final_feature = context
 
