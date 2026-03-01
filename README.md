@@ -1,34 +1,22 @@
-# L2 English Speech Scoring (Example Code Release)
+# Multimodal and Multitask Learning Model for Predicting Multiple Scores in L2 English Speech
 
-This repository provides an **example-oriented** code release for a multimodal + multitask L2 English speech scoring pipeline.
+This repository is the implementation of the multimodal and multitask architecture introduced in the paper, "Multimodal and Multitask Learning Model for Predicting Multiple Scores in L2 English Speech" (Interspeech 2025).
 
-It is shared for portfolio review and implementation reference (not a full final reproduction package).
+## Paper
+- Title: Multimodal and Multitask Learning Model for Predicting Multiple Scores in L2 English Speech
+- Venue: Interspeech 2025
 
-## What This Repository Shows
-- Multimodal architecture design with speech/text feature integration
-- Multitask prediction pipeline for multiple scoring dimensions
-- Core training/evaluation code organization
-- Example notebooks with outputs removed
+## Repository Overview
+- `src/`: training and evaluation pipeline
+- `modules/`: transformer and attention building blocks
+- `notebooks/`: experiment notebooks for model analysis and inspection
 
-## Project Structure
-```bash
-.
-├── src/                    # training/evaluation pipeline
-│   ├── train.py
-│   ├── models.py
-│   ├── models_with_trait_attention.py
-│   ├── dataset.py
-│   ├── eval_metrics.py
-│   ├── ctc.py
-│   └── utils.py
-├── modules/                # transformer/attention components
-│   ├── transformer.py
-│   ├── multihead_attention.py
-│   └── position_embedding.py
-└── notebooks/              # sanitized example notebooks (no result outputs)
+## Citation
+```bibtex
+@inproceedings{oh2025multimodal,
+  title={Multimodal and Multitask Learning Model for Predicting Multiple Scores in L2 English Speech},
+  author={Oh, Sehyun and Kim, Sunhee and Chung, Minhwa},
+  booktitle={Interspeech 2025},
+  year={2025}
+}
 ```
-
-## Notes
-- Experimental outputs are intentionally removed.
-- Baseline-comparison notebooks are intentionally excluded in this release.
-- Dataset and large external resources are not bundled.
